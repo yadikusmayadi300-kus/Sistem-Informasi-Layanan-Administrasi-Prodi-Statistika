@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sistem Informasi Layanan Administrasi Prodi Statistika</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --text-dark: #0f172a;
+      --text-muted: #475569;
+      --accent-teal: #0284c7;
+      --nav-active: #0369a1;
+      --bg-light-blue: #e0f2fe;
+      --bg-soft-blue: #f0f9ff;
+      --footer-bg: #bae6fd;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-dark);
+      /* Latar belakang biru muda terang */
+      background: linear-gradient(180deg, var(--bg-light-blue) 0%, var(--bg-soft-blue) 60%, #ffffff 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    /* ================= NAVBAR ================= */
+    header {
+      width: 100%;
+      padding: 22px 6%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      background-color: rgba(224, 242, 254, 0.85);
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(125, 211, 252, 0.5);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      text-decoration: none;
+      font-size: 13.5px;
+      color: #334155;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: var(--nav-active);
+    }
+
+    nav a.active {
+      color: var(--nav-active);
+      font-weight: 600;
+      letter-spacing: 0.8px;
+    }
+
+    .search-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+
+    .search-btn:hover {
+      color: var(--nav-active);
+    }
+
+    /* ================= HERO SECTION ================= */
+    main.hero {
+      flex: 1;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 48px 6% 70px;
+      display: grid;
+      grid-template-columns: 1.35fr 0.85fr;
+      align-items: center;
+      gap: 48px;
+    }
+
+    .hero-text-wrapper {
+      position: relative;
+    }
+
+    /* Garis atas, bawah, dan samping sudah dihilangkan */
+    .title-box {
+      border: none;
+      padding: 8px 0;
+    }
+
+    .title-box h1 {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+      font-weight: 700;
+      color: #0c4a6e;
+      line-height: 1.35;
+    }
+
+    .subtitle-box {
+      border: none;
+      padding: 6px 0 16px;
+    }
+
+    .subtitle-box p {
+      font-family: 'Libre Baskerville', Georgia, serif;
+      font-size: clamp(1rem, 1.45vw, 1.2rem);
+      font-weight: 400;
+      color: #1e3a8a;
+      line-height: 1.5;
+    }
+
+    .vertical-accent-line {
+      width: 3px;
+      height: 85px;
+      background-color: #38bdf8;
+      border-radius: 2px;
+      margin-top: 12px;
+    }
+
+    /* Ilustrasi Kanan */
+    .hero-illustration {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .illustration-svg {
+      width: 100%;
+      max-width: 245px;
+      height: auto;
+      filter: drop-shadow(0 12px 24px rgba(2, 132, 199, 0.16));
+      transition: transform 0.3s ease;
+    }
+
+    .illustration-svg:hover {
+      transform: translateY(-4px);
+    }
+
+    /* ================= FOOTER SECTION ================= */
+    footer.info-footer {
+      background-color: #dbeafe;
+      padding: 52px 8% 64px;
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid #bfdbfe;
+    }
+
+    /* Latar motif peta dunia halus */
+    .world-map-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 400' fill='%2393c5fd' fill-opacity='0.35'%3E%3Cpath d='M165,95 Q190,80 220,90 T260,120 T230,165 T180,150 Z M245,190 Q275,195 285,230 T265,300 T235,280 Z M455,85 Q500,70 545,85 T565,130 T510,145 T460,120 Z M475,160 Q520,155 545,195 T525,285 T480,260 T465,195 Z M585,95 Q660,75 745,95 T795,155 T720,190 T610,165 Z M735,235 Q785,230 805,265 T770,305 T725,275 Z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: cover;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .footer-grid {
+      position: relative;
+      z-index: 1;
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      text-align: center;
+    }
+
+    .footer-item {
+      cursor: pointer;
+      padding: 14px;
+      border-radius: 10px;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .footer-item:hover {
+      background-color: rgba(255, 255, 255, 0.75);
+      transform: translateY(-2px);
+    }
+
+    .accent-bar {
+      width: 36px;
+      height: 2.5px;
+      background-color: var(--accent-teal);
+      margin: 0 auto 14px;
+      border-radius: 2px;
+    }
+
+    .footer-item h2 {
+      font-size: 1.55rem;
+      font-weight: 400;
+      color: #1e3a8a;
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+
+    .footer-item span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--accent-teal);
+    }
+
+    /* ================= MODAL (PENGUMUMAN, KONTAK & PENCARIAN) ================= */
+    .modal-backdrop {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      z-index: 50;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .modal-backdrop.show {
+      display: flex;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 520px;
+      border-radius: 12px;
+      padding: 24px 28px;
+      border-top: 4px solid #38bdf8;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.15);
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
+      padding-bottom: 12px;
+      margin-bottom: 16px;
+    }
+
+    .modal-header h3 {
+      font-size: 1.1rem;
+      color: #0c4a6e;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: #64748b;
+      cursor: pointer;
+    }
+
+    .pengumuman-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .pengumuman-card {
+      border-left: 3px solid #38bdf8;
+      padding-left: 12px;
+    }
+
+    .pengumuman-card small {
+      color: #64748b;
+      font-size: 0.78rem;
+    }
+
+    .pengumuman-card h4 {
+      font-size: 0.95rem;
+      margin: 2px 0 4px;
+      color: #0f172a;
+    }
+
+    .pengumuman-card p {
+      font-size: 0.85rem;
+      color: #475569;
+      line-height: 1.45;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 10px 14px;
+      border: 1px solid #bae6fd;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+    }
+
+    .search-results {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .search-results a {
+      text-decoration: none;
+      padding: 10px 12px;
+      background: #f0f9ff;
+      border-radius: 6px;
+      color: #0f172a;
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      transition: background-color 0.2s;
+    }
+
+    .search-results a:hover {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    /* ================= RESPONSIVE ================= */
+    @media (max-width: 768px) {
+      header {
+        justify-content: center;
+      }
+      nav {
+        gap: 16px;
+        justify-content: center;
+      }
+      main.hero {
+        grid-template-columns: 1fr;
+        text-align: left;
+        padding-top: 24px;
+      }
+      .vertical-accent-line {
+        height: 45px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGASI ATAS -->
+  <header>
+    <nav>
+      <a href="#beranda" class="active">BERANDA</a>
+      <a href="<?= links.layanan ?>" target="_top">layanan</a>
+      <a href="<?= links.seminar ?>" target="_top">daftar seminar &amp; ujian</a>
+      <a href="<?= links.arsip ?>" target="_top">arsip mahasiswa</a>
+      <button class="search-btn" onclick="openModal('modalSearch')" title="Cari Layanan" aria-label="Cari Layanan">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </button>
+    </nav>
+  </header>
+
+  <!-- KONTEN UTAMA / HERO -->
+  <main class="hero" id="beranda">
+    <div class="hero-text-wrapper">
+      <div class="title-box">
+        <h1>Sistem Informasi Layanan Administrasi Prodi Statistika</h1>
+      </div>
+      <div class="subtitle-box">
+        <p>Fakultas Matematika dan Ilmu Pengetahuan Alam Universitas Mataram</p>
+      </div>
+      <div class="vertical-accent-line"></div>
+    </div>
+
+    <div class="hero-illustration">
+      <!-- Ilustrasi SVG Blob Gradasi Biru-Ungu dengan Dokumen Grafik & Gedung Kampus -->
+      <svg class="illustration-svg" viewBox="0 0 260 250" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="blobGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8" />
+            <stop offset="50%" stop-color="#60a5fa" />
+            <stop offset="100%" stop-color="#818cf8" />
+          </linearGradient>
+        </defs>
+
+        <!-- Bentuk Blob Utama -->
+        <path fill="url(#blobGrad)" d="M62.4,37.8C84.2,20.5,115.6,12.2,144.8,20.1C174,28,201,52.1,213.6,81.4C226.2,110.7,224.4,145.2,207.1,171.8C189.8,198.4,157,217.1,123.3,221.3C89.6,225.5,55,215.2,34.4,191.5C13.8,167.8,7.2,130.7,16.5,98.6C25.8,66.5,40.6,55.1,62.4,37.8Z" />
+
+        <!-- Titik-titik dekoratif -->
+        <circle cx="42" cy="48" r="4" fill="#38bdf8" opacity="0.8"/>
+        <circle cx="215" cy="52" r="5" fill="#60a5fa" opacity="0.8"/>
+        <circle cx="218" cy="196" r="3.5" fill="#818cf8" opacity="0.8"/>
+        <circle cx="46" cy="212" r="5" fill="#0284c7" opacity="0.75"/>
+        <circle cx="32" cy="198" r="2.5" fill="#38bdf8" opacity="0.85"/>
+
+        <!-- Kartu Dokumen Statistik (Kiri) -->
+        <g transform="translate(52, 68)">
+          <rect x="0" y="0" width="76" height="98" rx="6" fill="#ffffff" fill-opacity="0.95" stroke="#0284c7" stroke-width="1.8"/>
+          <!-- Pie Chart -->
+          <circle cx="38" cy="36" r="19" fill="none" stroke="#0284c7" stroke-width="1.8"/>
+          <path d="M38,36 L38,17 A19,19 0 0,1 55,44 Z" fill="#bae6fd" stroke="#0284c7" stroke-width="1.6"/>
+          <line x1="38" y1="36" x2="23" y2="48" stroke="#0284c7" stroke-width="1.6"/>
+          <!-- Baris teks dokumen -->
+          <rect x="14" y="68" width="22" height="6" rx="2" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+          <line x1="42" y1="71" x2="62" y2="71" stroke="#0284c7" stroke-width="1.8" stroke-linecap="round"/>
+          <rect x="14" y="80" width="22" height="6" rx="2" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+          <line x1="42" y1="83" x2="62" y2="83" stroke="#0284c7" stroke-width="1.8" stroke-linecap="round"/>
+        </g>
+
+        <!-- Gedung Kampus (Kanan) -->
+        <g transform="translate(115, 62)">
+          <!-- Tiang Bendera & Atap -->
+          <line x1="34" y1="0" x2="34" y2="18" stroke="#ffffff" stroke-width="2"/>
+          <path d="M34,2 L48,6 L34,10 Z" fill="#ffffff"/>
+          <polygon points="10,36 34,16 58,36" fill="#ffffff" fill-opacity="0.95" stroke="#0284c7" stroke-width="1.8"/>
+          <circle cx="34" cy="28" r="3" fill="#0284c7"/>
+          
+          <!-- Badan Utama Gedung -->
+          <rect x="14" y="36" width="40" height="68" fill="#ffffff" fill-opacity="0.95" stroke="#0284c7" stroke-width="1.8"/>
+          <!-- Sayap Kanan Gedung -->
+          <rect x="54" y="54" width="38" height="50" fill="#ffffff" fill-opacity="0.95" stroke="#0284c7" stroke-width="1.8"/>
+          
+          <!-- Jendela-jendela -->
+          <rect x="22" y="46" width="8" height="10" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+          <rect x="38" y="46" width="8" height="10" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+          <rect x="22" y="64" width="8" height="10" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+          <rect x="38" y="64" width="8" height="10" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+          
+          <!-- Pintu Utama -->
+          <rect x="28" y="84" width="12" height="20" fill="#bae6fd" stroke="#0284c7" stroke-width="1.5"/>
+
+          <!-- Jendela Sayap Kanan -->
+          <rect x="62" y="64" width="8" height="10" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+          <rect x="76" y="64" width="8" height="10" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+          <rect x="62" y="82" width="8" height="10" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+          <rect x="76" y="82" width="8" height="10" fill="none" stroke="#0284c7" stroke-width="1.5"/>
+        </g>
+      </svg>
+    </div>
+  </main>
+
+  <!-- FOOTER INFORMASI -->
+  <footer class="info-footer">
+    <div class="world-map-bg"></div>
+    <div class="footer-grid">
+      <div class="footer-item" onclick="openModal('modalPengumuman')">
+        <div class="accent-bar"></div>
+        <h2>Pengumuman</h2>
+        <span>Informasi terkini</span>
+      </div>
+      <div class="footer-item" onclick="openModal('modalKontak')">
+        <div class="accent-bar"></div>
+        <h2>Hubungi Kami</h2>
+        <span>Universitas Mataram</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL PENGUMUMAN -->
+  <div class="modal-backdrop" id="modalPengumuman" onclick="closeBackdrop(event, 'modalPengumuman')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Pengumuman &amp; Informasi Terkini</h3>
+        <button class="close-btn" onclick="closeModal('modalPengumuman')">&times;</button>
+      </div>
+      <div class="pengumuman-list" id="pengumumanContainer">
+        <p style="font-size:0.9rem; color:#64748b;">Memuat pengumuman...</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL HUBUNGI KAMI -->
+  <div class="modal-backdrop" id="modalKontak" onclick="closeBackdrop(event, 'modalKontak')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Hubungi Kami</h3>
+        <button class="close-btn" onclick="closeModal('modalKontak')">&times;</button>
+      </div>
+      <div style="font-size: 0.92rem; line-height: 1.65; color: #334155;">
+        <p><strong>Program Studi Statistika</strong></p>
+        <p>Fakultas Matematika dan Ilmu Pengetahuan Alam (FMIPA)</p>
+        <p>Universitas Mataram</p>
+        <hr style="margin: 12px 0; border: none; border-top: 1px solid #e2e8f0;">
+        <p><strong>Alamat:</strong> Jl. Majapahit No. 62, Mataram 83125, Nusa Tenggara Barat</p>
+        <p><strong>Laman Resmi:</strong> <a href="https://mipa.unram.ac.id/statistika" target="_blank" style="color:#0284c7;">mipa.unram.ac.id/statistika</a></p>
+        <p><strong>Jam Layanan:</strong> Senin – Jumat, 08.00 – 16.00 WITA</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PENCARIAN LAYANAN -->
+  <div class="modal-backdrop" id="modalSearch" onclick="closeBackdrop(event, 'modalSearch')">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Cari Layanan Administrasi</h3>
+        <button class="close-btn" onclick="closeModal('modalSearch')">&times;</button>
+      </div>
+      <input type="text" id="searchInput" class="search-input" placeholder="Ketik kata kunci (misal: antrean, seminar, arsip, skripsi)..." onkeyup="filterLayanan()">
+      <div class="search-results" id="searchResults">
+        <a href="<?= links.layanan ?>" target="_top"><span>Layanan Administrasi &amp; Antrean Online</span><span>&rarr;</span></a>
+        <a href="<?= links.seminar ?>" target="_top"><span>Pendaftaran Seminar &amp; Ujian Skripsi</span><span>&rarr;</span></a>
+        <a href="<?= links.arsip ?>" target="_top"><span>Arsip Mahasiswa &amp; Dokumen Akademik</span><span>&rarr;</span></a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openModal(id) {
+      document.getElementById(id).classList.add('show');
+      if (id === 'modalPengumuman') {
+        loadPengumuman();
+      }
+      if (id === 'modalSearch') {
+        setTimeout(() => document.getElementById('searchInput').focus(), 100);
+      }
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).classList.remove('show');
+    }
+
+    function closeBackdrop(event, id) {
+      if (event.target.id === id) {
+        closeModal(id);
+      }
+    }
+
+    let pengumumanLoaded = false;
+    function loadPengumuman() {
+      if (pengumumanLoaded) return;
+      google.script.run
+        .withSuccessHandler(function(data) {
+          const container = document.getElementById('pengumumanContainer');
+          if (!data || data.length === 0) {
+            container.innerHTML = '<p style="font-size:0.9rem; color:#64748b;">Belum ada pengumuman terbaru.</p>';
+            return;
+          }
+          container.innerHTML = data.map(item => `
+            <div class="pengumuman-card">
+              <small>${item.tanggal}</small>
+              <h4>${item.judul}</h4>
+              <p>${item.isi}</p>
+            </div>
+          `).join('');
+          pengumumanLoaded = true;
+        })
+        .getPengumuman();
+    }
+
+    function filterLayanan() {
+      const keyword = document.getElementById('searchInput').value.toLowerCase();
+      const links = document.querySelectorAll('#searchResults a');
+      links.forEach(link => {
+        const text = link.textContent.toLowerCase();
+        link.style.display = text.includes(keyword) ? 'flex' : 'none';
+      });
+    }
+  </script>
+</body>
+</html>
